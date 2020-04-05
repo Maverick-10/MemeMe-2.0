@@ -12,16 +12,15 @@ class MemeEditorViewController: UIViewController {
 
     // MARK: Outlets
     @IBOutlet weak var memeImageView: UIImageView!
-    @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var albumButton: UIBarButtonItem!
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
-    @IBOutlet weak var topToolbar: UIToolbar!
     @IBOutlet weak var bottomToolbar: UIToolbar!
-    @IBOutlet weak var shareMemeButton: UIBarButtonItem!
     
     // MARK: Properties
+    internal var shareMemeButton: UIBarButtonItem!
+    internal var cancelButton: UIBarButtonItem!
     fileprivate let memeTextAttributes: [NSAttributedString.Key: Any] = [.strokeColor: UIColor.white,
                                                              .foregroundColor: UIColor.white,
                                                              .font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
@@ -38,7 +37,6 @@ class MemeEditorViewController: UIViewController {
         // Do any additional setup after loading the view.
         configureUI()
         configureFonts()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,26 +78,8 @@ class MemeEditorViewController: UIViewController {
         
     }
     
-    @IBAction func cancelButtonPressed(_ sender: Any) {
-        // Reset the view
-        topTextField.text = topTextFieldText
-        bottomTextField.text = bottomTextFieldText
-        memeImageView.image = nil
-    }
-    
-    @IBAction func shareMemeButtonPressed(_ sender: Any) {
-        memedImage = generateMemedImage()
-
-        // Create activity to share memed image
-        let activityController = UIActivityViewController(activityItems: [memedImage!], applicationActivities: nil)
-        present(activityController, animated: true) { [weak self] in
-            self?.save()
-        }
-    }
-    
     // MARK - Helpers
     func toolbarAndNavigationBar(isHidden: Bool) {
-        topToolbar.isHidden = isHidden
         bottomToolbar.isHidden = isHidden
         navigationController?.setNavigationBarHidden(isHidden, animated: false)
     }
@@ -144,13 +124,53 @@ extension MemeEditorViewController {
 
 // MARK: - Configure UI
 extension MemeEditorViewController {
+    
     func configureUI() {
+    
+        // Configure bar buttons in the navigation bar
+        configureBarButtons()
+        
         topTextField.defaultTextAttributes = memeTextAttributes
         topTextField.textAlignment = .center
         bottomTextField.defaultTextAttributes = memeTextAttributes
         bottomTextField.textAlignment = .center
-        
         shareMemeButton.isEnabled = false
+    }
+    
+    func configureBarButtons() {
+        
+        // Share button
+        shareMemeButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareMeme))
+        
+        // Cancel button
+        cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(goBack))
+        cancelButton.tintColor = .red
+        
+        // Fixed space button
+        let fixedButton = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        
+        navigationItem.rightBarButtonItems = [cancelButton, fixedButton, shareMemeButton]
+    }
+    
+    @objc func shareMeme() {
+        
+        memedImage = generateMemedImage()
+        
+        // Create activity to share memed image
+        let activityController = UIActivityViewController(activityItems: [memedImage!], applicationActivities: nil)
+        present(activityController, animated: true, completion: nil)
+        
+        activityController.completionWithItemsHandler = { [weak self] _, success, _ , _ in
+            if success {                
+                self?.save()
+            }
+            self?.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    @objc func goBack() {
+        // Reset the view
+        navigationController?.popViewController(animated: true)
     }
     
     
