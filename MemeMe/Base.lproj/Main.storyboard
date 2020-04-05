@@ -101,7 +101,7 @@
             </objects>
             <point key="canvasLocation" x="2271" y="575"/>
         </scene>
-        <!--Sent Memes Table View Controller-->
+        <!--Meme 2.0-->
         <scene sceneID="tet-RB-OAf">
             <objects>
                 <tableViewController id="Fdv-bV-YCu" customClass="SentMemesTableViewController" customModule="MemeMe_2_0" sceneMemberID="viewController">
@@ -152,7 +152,7 @@
                             <outlet property="delegate" destination="Fdv-bV-YCu" id="4yQ-DI-COC"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="yPL-tH-NbW">
+                    <navigationItem key="navigationItem" title="Meme 2.0" id="yPL-tH-NbW">
                         <barButtonItem key="leftBarButtonItem" title="Edit" id="Nff-QJ-gqg">
                             <connections>
                                 <action selector="editButtonPressed:" destination="Fdv-bV-YCu" id="bMi-eq-PGq"/>
@@ -172,7 +172,7 @@
             </objects>
             <point key="canvasLocation" x="1000.0000000000001" y="82.366071428571431"/>
         </scene>
-        <!--Sent Memes Collection View Controller-->
+        <!--Meme 2.0-->
         <scene sceneID="rDa-kb-BQF">
             <objects>
                 <collectionViewController id="T7l-ts-p7l" customClass="SentMemesCollectionViewController" customModule="MemeMe_2_0" sceneMemberID="viewController">
@@ -216,7 +216,7 @@
                             <outlet property="delegate" destination="T7l-ts-p7l" id="ylq-Yu-F8n"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="Fk9-Na-Xfb">
+                    <navigationItem key="navigationItem" title="Meme 2.0" id="Fk9-Na-Xfb">
                         <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="duk-d0-0MX">
                             <connections>
                                 <action selector="createMemedImage:" destination="T7l-ts-p7l" id="fX8-FW-wyU"/>
