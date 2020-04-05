@@ -27,10 +27,10 @@ class MemeEditorViewController: UIViewController {
     // MARK: Properties
     internal var shareMemeButton: UIBarButtonItem!
     internal var cancelButton: UIBarButtonItem!
-    fileprivate let memeTextAttributes: [NSAttributedString.Key: Any] = [.strokeColor: UIColor.white,
+    fileprivate let memeTextAttributes: [NSAttributedString.Key: Any] = [.strokeColor: UIColor.black,
                                                              .foregroundColor: UIColor.white,
                                                              .font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-                                                             .strokeWidth: 4]
+                                                             .strokeWidth: -4]
     internal var memedImage: UIImage!
     fileprivate let maximumAllowedFonts = 8
     fileprivate var fonts = [UIFont]()
