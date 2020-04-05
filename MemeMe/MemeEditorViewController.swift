@@ -9,6 +9,12 @@
 import UIKit
 
 class MemeEditorViewController: UIViewController {
+    
+    
+    struct PlaceholderText {
+        static let Top = "TOP"
+        static let Bottom = "BOTTOM"
+    }
 
     // MARK: Outlets
     @IBOutlet weak var memeImageView: UIImageView!
@@ -26,8 +32,6 @@ class MemeEditorViewController: UIViewController {
                                                              .font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
                                                              .strokeWidth: 4]
     internal var memedImage: UIImage!
-    fileprivate let topTextFieldText = "TOP"
-    fileprivate let bottomTextFieldText = "BOTTOM"
     fileprivate let maximumAllowedFonts = 8
     fileprivate var fonts = [UIFont]()
     
@@ -132,8 +136,10 @@ extension MemeEditorViewController {
         
         topTextField.defaultTextAttributes = memeTextAttributes
         topTextField.textAlignment = .center
+        topTextField.text = PlaceholderText.Top
         bottomTextField.defaultTextAttributes = memeTextAttributes
         bottomTextField.textAlignment = .center
+        bottomTextField.text = PlaceholderText.Bottom
         shareMemeButton.isEnabled = false
     }
     
@@ -161,7 +167,7 @@ extension MemeEditorViewController {
         present(activityController, animated: true, completion: nil)
         
         activityController.completionWithItemsHandler = { [weak self] _, success, _ , _ in
-            if success {                
+            if success {
                 self?.save()
             }
             self?.navigationController?.popViewController(animated: true)
